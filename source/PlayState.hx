@@ -2085,6 +2085,11 @@ class PlayState extends MusicBeatState
 		}*/
 
 		callOnLuas('onUpdate', [elapsed]);
+		
+		if (generatedMusic && PlayState.SONG.notes[Std.int(curStep / 16)] != null && !endingSong && !isCameraOnForcedPos)
+		{
+			moveCameraSection(Std.int(curStep / 16));
+		}
 
 		switch (curStage)
 		{
@@ -2499,7 +2504,7 @@ class PlayState extends MusicBeatState
 			if(!cpuControlled) {
 				keyShit();
 			} else if(boyfriend.holdTimer > Conductor.stepCrochet * 0.001 * boyfriend.singDuration && boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss')) {
-				boyfriend.dance();
+				boyfriend.dance(true);
 			}
 		}
 		
@@ -3151,7 +3156,7 @@ class PlayState extends MusicBeatState
 					if(FlxTransitionableState.skipNextTransIn) {
 						CustomFadeTransition.nextCamera = null;
 					}
-					MusicBeatState.switchState(new StoryMenuState());
+					MusicBeatState.switchState(new MainMenuState());
 
 					// if ()
 					if(!ClientPrefs.getGameplaySetting('practice', false) && !ClientPrefs.getGameplaySetting('botplay', false)) {
@@ -3169,7 +3174,7 @@ class PlayState extends MusicBeatState
 				}
 				else
 				{
-					var difficulty:String = CoolUtil.getDifficultyFilePath();
+					var difficulty:String = '-hard';
 
 					trace('LOADING NEXT SONG');
 					trace(Paths.formatToSongPath(PlayState.storyPlaylist[0]) + difficulty);
@@ -3619,7 +3624,7 @@ class PlayState extends MusicBeatState
 				#end
 			} else if (boyfriend.holdTimer > Conductor.stepCrochet * 0.001 * boyfriend.singDuration && boyfriend.animation.curAnim.name.startsWith('sing')
 			&& !boyfriend.animation.curAnim.name.endsWith('miss'))
-				boyfriend.dance();
+				boyfriend.dance(true);
 		}
 
 		// TO DO: Find a better way to handle controller inputs, this should work for now
@@ -4159,15 +4164,10 @@ class PlayState extends MusicBeatState
 			// Conductor.changeBPM(SONG.bpm);
 		}
 		// FlxG.log.add('change bpm' + SONG.notes[Std.int(curStep / 16)].changeBPM);
-
-		if (generatedMusic && PlayState.SONG.notes[Std.int(curStep / 16)] != null && !endingSong && !isCameraOnForcedPos)
-		{
-			moveCameraSection(Std.int(curStep / 16));
-		}
 		if (camZooming && FlxG.camera.zoom < 1.35 && ClientPrefs.camZooms && curBeat % 4 == 0)
 		{
 			FlxG.camera.zoom += 0.015;
-			camHUD.zoom += 0.03;
+			camHUD.zoom += 0.045;
 		}
 
 		iconP1.scale.set(1.2, 1.2);

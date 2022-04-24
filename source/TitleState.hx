@@ -242,22 +242,14 @@ class TitleState extends MusicBeatState
 		logoBl.frames = Paths.getSparrowAtlas('logoBumpin');
 		
 		logoBl.antialiasing = ClientPrefs.globalAntialiasing;
-		logoBl.animation.addByPrefix('bump', 'logo bumpin', 24, false);
+		logoBl.animation.addByPrefix('bump', 'Logo Bop', 24, false);
 		logoBl.animation.play('bump');
+		logoBl.setGraphicSize(Std.int(logoBl.width * 0.4));
 		logoBl.updateHitbox();
-		// logoBl.screenCenter();
+		logoBl.screenCenter(X);
+		logoBl.x -= 25;
 		// logoBl.color = FlxColor.BLACK;
 
-		swagShader = new ColorSwap();
-		gfDance = new FlxSprite(titleJSON.gfx, titleJSON.gfy);
-		gfDance.frames = Paths.getSparrowAtlas('gfDanceTitle');
-
-		gfDance.animation.addByIndices('danceLeft', 'gfDance', [30, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], "", 24, false);
-		gfDance.animation.addByIndices('danceRight', 'gfDance', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
-		gfDance.antialiasing = ClientPrefs.globalAntialiasing;
-		
-		add(gfDance);
-		gfDance.shader = swagShader.shader;
 		add(logoBl);
 		logoBl.shader = swagShader.shader;
 
@@ -282,8 +274,9 @@ class TitleState extends MusicBeatState
 		titleText.animation.addByPrefix('press', "ENTER PRESSED", 24);
 		titleText.antialiasing = ClientPrefs.globalAntialiasing;
 		titleText.animation.play('idle');
+		titleText.setGraphicSize(Std.int(titleText.width * 0.6));
+		//titleText.screenCenter(X);
 		titleText.updateHitbox();
-		// titleText.screenCenter(X);
 		add(titleText);
 
 		var logo:FlxSprite = new FlxSprite().loadGraphic(Paths.image('logo'));

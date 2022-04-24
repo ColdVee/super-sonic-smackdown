@@ -296,7 +296,7 @@ class Character extends FlxSprite
 
 				if (holdTimer >= Conductor.stepCrochet * 0.001 * singDuration)
 				{
-					dance();
+					dance(true);
 					holdTimer = 0;
 				}
 			}
@@ -314,8 +314,11 @@ class Character extends FlxSprite
 	/**
 	 * FOR GF DANCING SHIT
 	 */
-	public function dance()
+	public function dance(Final:Bool = false):Void
 	{
+		var frame:Int = 0;
+		if (Final)
+		frame = 13;
 		if (!debugMode && !specialAnim)
 		{
 			if(danceIdle)
@@ -323,12 +326,12 @@ class Character extends FlxSprite
 				danced = !danced;
 
 				if (danced)
-					playAnim('danceRight' + idleSuffix);
+					playAnim('danceRight' + idleSuffix, false, false, frame);
 				else
-					playAnim('danceLeft' + idleSuffix);
+					playAnim('danceLeft' + idleSuffix, false, false, frame);
 			}
 			else if(animation.getByName('idle' + idleSuffix) != null) {
-					playAnim('idle' + idleSuffix);
+					playAnim('idle' + idleSuffix, true, false, frame);
 			}
 		}
 	}

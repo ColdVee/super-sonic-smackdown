@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="monkey.png">
+	<!-- Created with Adobe Animate version 16.0.1.119 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="monkeybop0000" x="0" y="0" width="448" height="724" frameX="0" frameY="-3" frameWidth="448" frameHeight="727"/>
+	<SubTexture name="monkeybop0001" x="0" y="0" width="448" height="724" frameX="0" frameY="-3" frameWidth="448" frameHeight="727"/>
+	<SubTexture name="monkeybop0002" x="448" y="0" width="440" height="726" frameX="-4" frameY="-1" frameWidth="448" frameHeight="727"/>
+	<SubTexture name="monkeybop0003" x="448" y="0" width="440" height="726" frameX="-4" frameY="-1" frameWidth="448" frameHeight="727"/>
+	<SubTexture name="monkeybop0004" x="0" y="726" width="437" height="727" frameX="-5" frameY="0" frameWidth="448" frameHeight="727"/>
+	<SubTexture name="monkeybop0005" x="0" y="726" width="437" height="727" frameX="-5" frameY="0" frameWidth="448" frameHeight="727"/>
+	<SubTexture name="monkeybop0006" x="0" y="726" width="437" height="727" frameX="-5" frameY="0" frameWidth="448" frameHeight="727"/>
+	<SubTexture name="monkeybop0007" x="0" y="726" width="437" height="727" frameX="-5" frameY="0" frameWidth="448" frameHeight="727"/>
+	<SubTexture name="monkeybop0008" x="0" y="726" width="437" height="727" frameX="-5" frameY="0" frameWidth="448" frameHeight="727"/>
+	<SubTexture name="monkeybop0009" x="0" y="726" width="437" height="727" frameX="-5" frameY="0" frameWidth="448" frameHeight="727"/>
+	<SubTexture name="monkeybop0010" x="0" y="726" width="437" height="727" frameX="-5" frameY="0" frameWidth="448" frameHeight="727"/>
+	<SubTexture name="monkeybop0011" x="0" y="726" width="437" height="727" frameX="-5" frameY="0" frameWidth="448" frameHeight="727"/>
+	<SubTexture name="monkeybop0012" x="0" y="726" width="437" height="727" frameX="-5" frameY="0" frameWidth="448" frameHeight="727"/>
+	<SubTexture name="monkeybop0013" x="0" y="726" width="437" height="727" frameX="-5" frameY="0" frameWidth="448" frameHeight="727"/>
+</TextureAtlas>
