@@ -298,6 +298,7 @@ class BiosMenuState extends MusicBeatState
 		portrait.scrollFactor.set();
 		portrait.antialiasing = ClientPrefs.globalAntialiasing;
 		add(portrait);
+		charSpr.offset.y = 0;
 			
 		switch (curSelected) // 0 = silver, 1 = dark, 2 = terios, 3 = sonai
 		{
@@ -311,6 +312,7 @@ class BiosMenuState extends MusicBeatState
 				charSpr.setGraphicSize(208);
 				charSpr.updateHitbox();
 				charSpr.scrollFactor.set();
+				charSpr.offset.y = -10;
 				add(charSpr);
 				
 				bioText.text = "Silver Sonic\nVoiced by Luckiibean\nSonic's first robotic doppelganger created by Dr.Eggman.\n\nThis guy has made an appearance in:\nSonic 2 8-BIT, Sonic Mania and both the Archie and IDW comics.";
