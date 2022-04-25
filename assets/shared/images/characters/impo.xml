@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="Imposter Sonic.png">
+	<!-- Created with Adobe Animate version 20.0.3.25487 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="SAI IDLE0000" x="20" y="20" width="590" height="655"/>
+	<SubTexture name="SAI IDLE0001" x="20" y="20" width="590" height="655"/>
+	<SubTexture name="SAI IDLE0002" x="630" y="20" width="590" height="655"/>
+	<SubTexture name="SAI IDLE0003" x="630" y="20" width="590" height="655"/>
+	<SubTexture name="SAI IDLE0004" x="1240" y="20" width="590" height="655"/>
+	<SubTexture name="SAI IDLE0005" x="1240" y="20" width="590" height="655"/>
+	<SubTexture name="SAI IDLE0006" x="20" y="695" width="590" height="655"/>
+	<SubTexture name="SAI IDLE0007" x="20" y="695" width="590" height="655"/>
+	<SubTexture name="SAI IDLE0008" x="20" y="695" width="590" height="655"/>
+	<SubTexture name="SAI IDLE0009" x="630" y="695" width="590" height="655"/>
+	<SubTexture name="SAI IDLE0010" x="1240" y="695" width="590" height="655"/>
+	<SubTexture name="SAI IDLE0011" x="1240" y="695" width="590" height="655"/>
+	<SubTexture name="SAI IDLE0012" x="20" y="1370" width="590" height="655"/>
+	<SubTexture name="SAI IDLE0013" x="20" y="1370" width="590" height="655"/>
+</TextureAtlas>

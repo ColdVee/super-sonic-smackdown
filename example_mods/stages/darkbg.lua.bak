@@ -1,6 +1,7 @@
 startTween = false
 floating = false
 function onCreate()
+	setPropertyFromClass('GameOverSubstate', 'characterName', 'thorndyke')
 	--Makes the gloop sprite and marks down its animations
 	makeLuaSprite('Background','stages/darkbg',-800,-800)
 

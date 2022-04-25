@@ -29,6 +29,7 @@ class MainMenuState extends MusicBeatState
 	public static var psychEngineVersion:String = '0.5.1-git'; //This is also used for Discord RPC
 	public static var curSelected:Int = 0;
 
+	var tweened:Array<Bool>;
 	var menuItems:FlxTypedGroup<FlxSprite>;
 	private var camGame:FlxCamera;
 	private var camAchievement:FlxCamera;
@@ -93,6 +94,7 @@ class MainMenuState extends MusicBeatState
 		
 		// magenta.scrollFactor.set();
 
+		tweened = new Array<Bool>();
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
 
@@ -116,6 +118,7 @@ class MainMenuState extends MusicBeatState
 			menuItem.updateHitbox();
 			menuItem.screenCenter(X);
 			menuItems.add(menuItem);
+			tweened.push(false);
 			var scr:Float = (optionShit.length - 4) * 0.135;
 			if(optionShit.length < 6) scr = 0;
 			menuItem.scrollFactor.set(0, scr);
@@ -201,74 +204,76 @@ class MainMenuState extends MusicBeatState
 				{
 					CoolUtil.browserLoad('https://ninja-muffin24.itch.io/funkin');
 				}
-				else
+				else if (!selectedSomethin)
 				{
 					selectedSomethin = true;
 					FlxG.sound.play(Paths.sound('confirmMenu'));
-
-					menuItems.forEach(function(spr:FlxSprite)
+					
+					menuItems.members[curSelected].scale.set(0.3, 0.3);
+					FlxTween.tween(menuItems.members[curSelected].scale, {x: 0.4, y: 0.4}, 0.25, {ease: FlxEase.sineOut});
+					
+					var reversedLength:Array<Int> = CoolUtil.numberArray(optionShit.length, 0);
+					reversedLength.reverse();
+					for (i in reversedLength)
 					{
-						if (curSelected != spr.ID)
+						var duration:Float = -(i * 0.1);
+						new FlxTimer().start(duration, function(tmr:FlxTimer)
 						{
-							FlxTween.tween(spr, {alpha: 0}, 0.4, {
-								ease: FlxEase.quadOut,
-								onComplete: function(twn:FlxTween)
-								{
-									spr.kill();
-								}
-							});
-						}
-						else
+							FlxTween.tween(menuItems.members[reversedLength[i]], {y: (menuItems.members[reversedLength[i]].y + 1200)}, 0.8, {ease: FlxEase.backIn});
+						});
+					}
+					new FlxTimer().start(0.4, function(tmr:FlxTimer)
+					{
+						FlxTween.tween(FlxG.camera, {zoom: 10}, 1.35, {ease: FlxEase.cubeIn});
+					});
+					new FlxTimer().start(1, function(tmr:FlxTimer)
+					{
+						
+						var daChoice:String = optionShit[curSelected];
+
+						switch (daChoice)
 						{
-							FlxFlicker.flicker(spr, 1, 0.06, false, false, function(flick:FlxFlicker)
-							{
-								var daChoice:String = optionShit[curSelected];
-
-								switch (daChoice)
-								{
-									case 'story_mode':
-										/*var songArray:Array<String> = [];
-										WeekData.reloadWeekFiles(true);
-										var leWeek:Array<Dynamic> = WeekData.weeksLoaded.get(WeekData.weeksList[0]).songs;
-										for (i in 0...leWeek.length) {
-											songArray.push(leWeek[i][0]);
-										}
-
-										// Nevermind that's stupid lmao
-										PlayState.storyPlaylist = songArray;
-										PlayState.isStoryMode = true;
-										//selectedWeek = true;
-
-										var diffic = '-hard';
-										if(diffic == null) diffic = '';
-
-										PlayState.storyDifficulty = 0;
-
-										PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase() + diffic, PlayState.storyPlaylist[0].toLowerCase());
-										PlayState.campaignScore = 0;
-										PlayState.campaignMisses = 0;
-										new FlxTimer().start(0.1, function(tmr:FlxTimer)
-										{
-											LoadingState.loadAndSwitchState(new PlayState(), true);
-											FreeplayState.destroyFreeplayVocals();
-										});*/
-										MusicBeatState.switchState(new StoryMenuState());
-									case 'freeplay':
-										MusicBeatState.switchState(new FreeplayState());
-									#if MODS_ALLOWED
-									case 'mods':
-										MusicBeatState.switchState(new ModsMenuState());
-									#end
-									case 'awards':
-										MusicBeatState.switchState(new AchievementsMenuState());
-									case 'credits':
-										MusicBeatState.switchState(new CreditsState());
-									case 'bios':
-										MusicBeatState.switchState(new BiosMenuState());
-									case 'options':
-										LoadingState.loadAndSwitchState(new options.OptionsState());
+							case 'story_mode':
+								/*var songArray:Array<String> = [];
+								WeekData.reloadWeekFiles(true);
+								var leWeek:Array<Dynamic> = WeekData.weeksLoaded.get(WeekData.weeksList[0]).songs;
+								for (i in 0...leWeek.length) {
+									songArray.push(leWeek[i][0]);
 								}
-							});
+
+								// Nevermind that's stupid lmao
+								PlayState.storyPlaylist = songArray;
+								PlayState.isStoryMode = true;
+								//selectedWeek = true;
+
+								var diffic = '-hard';
+								if(diffic == null) diffic = '';
+
+								PlayState.storyDifficulty = 0;
+
+								PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase() + diffic, PlayState.storyPlaylist[0].toLowerCase());
+								PlayState.campaignScore = 0;
+								PlayState.campaignMisses = 0;
+								new FlxTimer().start(0.1, function(tmr:FlxTimer)
+								{
+									LoadingState.loadAndSwitchState(new PlayState(), true);
+									FreeplayState.destroyFreeplayVocals();
+								});*/
+								MusicBeatState.switchState(new StoryMenuState());
+							case 'freeplay':
+								MusicBeatState.switchState(new FreeplayState());
+							#if MODS_ALLOWED
+							case 'mods':
+								MusicBeatState.switchState(new ModsMenuState());
+							#end
+							case 'awards':
+								MusicBeatState.switchState(new AchievementsMenuState());
+							case 'credits':
+								MusicBeatState.switchState(new CreditsState());
+							case 'bios':
+								MusicBeatState.switchState(new BiosMenuState());
+							case 'options':
+								LoadingState.loadAndSwitchState(new options.OptionsState());
 						}
 					});
 				}
@@ -283,13 +288,12 @@ class MainMenuState extends MusicBeatState
 		}
 
 		super.update(elapsed);
-
-		menuItems.forEach(function(spr:FlxSprite)
-		{
-			spr.screenCenter(X);
-		});
 	}
-
+	
+	function tweenMenuButton(duration:Float = 0, index)
+	{
+		//FlxTween.tween(spr, {y: 773.65}, duration, {ease: FlxEase.sineIn});
+	}
 	function changeItem(huh:Int = 0)
 	{
 		curSelected += huh;
@@ -302,18 +306,33 @@ class MainMenuState extends MusicBeatState
 		menuItems.forEach(function(spr:FlxSprite)
 		{
 			spr.animation.play('idle');
-			spr.updateHitbox();
+			//spr.updateHitbox();
 
 			if (spr.ID == curSelected)
 			{
+				FlxTween.tween(spr.scale, {x: 0.4, y: 0.4}, 0.05, {ease: FlxEase.sineOut});
 				spr.animation.play('selected');
 				var add:Float = 0;
 				if(menuItems.length > 4) {
 					add = menuItems.length * 8;
 				}
 				camFollow.setPosition(spr.getGraphicMidpoint().x, spr.getGraphicMidpoint().y - add);
-				spr.centerOffsets();
 			}
+			else
+			FlxTween.tween(spr.scale, {x: 0.35, y: 0.35}, 0.05, {ease: FlxEase.sineOut});
 		});
 	}
+}
+
+class ReverseIterator {
+  var end:Int;
+  var i:Int;
+
+  public inline function new(start:Int, end:Int) {
+    this.i = start;
+    this.end = end;
+  }
+
+  public inline function hasNext() return i >= end;
+  public inline function next() return i--;
 }

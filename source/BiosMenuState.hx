@@ -29,15 +29,17 @@ class BiosMenuState extends MusicBeatState
 	public static var psychEngineVersion:String = '0.5.1-git'; //This is also used for Discord RPC
 	public static var curSelected:Int = 0;
 
-	var menuItems:FlxTypedGroup<FlxSprite>;
+	var charSpr:FlxSprite;
+	var portrait:FlxSprite;
+	var bioText:FlxText;
 	private var camGame:FlxCamera;
 	private var camAchievement:FlxCamera;
 	
-	var optionShit:Array<String> = [
-		'story_mode',
-		'freeplay',
-		'credits',
-		'options'
+	var chars:Array<String> = [
+		'silver',
+		'dark',
+		'terios',
+		'sonai'
 	];
 
 	var magenta:FlxSprite;
@@ -51,88 +53,144 @@ class BiosMenuState extends MusicBeatState
 
 		#if desktop
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("In the Menus", null);
+		DiscordClient.changePresence("In the Bios Menu", null);
 		#end
-		debugKeys = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
 
 		camGame = new FlxCamera();
-		camAchievement = new FlxCamera();
-		camAchievement.bgColor.alpha = 0;
 
 		FlxG.cameras.reset(camGame);
-		FlxG.cameras.add(camAchievement);
 		FlxCamera.defaultCameras = [camGame];
 
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
 
 		persistentUpdate = persistentDraw = true;
-
-		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
-		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menuBG'));
-		bg.scrollFactor.set(0, yScroll);
-		bg.setGraphicSize(Std.int(bg.width * 1.175));
-		bg.updateHitbox();
-		bg.screenCenter();
-		bg.antialiasing = ClientPrefs.globalAntialiasing;
-		add(bg);
-
+		
 		camFollow = new FlxObject(0, 0, 1, 1);
 		camFollowPos = new FlxObject(0, 0, 1, 1);
 		add(camFollow);
 		add(camFollowPos);
 
-		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
-		magenta.scrollFactor.set(0, yScroll);
-		magenta.setGraphicSize(Std.int(magenta.width * 1.175));
+		magenta = new FlxSprite(0).loadGraphic(Paths.image('menuDesat'));
+		magenta.scrollFactor.set(0, 0);
 		magenta.updateHitbox();
 		magenta.screenCenter();
-		magenta.visible = false;
 		magenta.antialiasing = ClientPrefs.globalAntialiasing;
-		magenta.color = 0xFFfd719b;
+		magenta.color = 0xFFFF282E;
 		add(magenta);
 		
 		// magenta.scrollFactor.set();
-
-		menuItems = new FlxTypedGroup<FlxSprite>();
-		add(menuItems);
+		
+		var uiShadow:FlxSprite = new FlxSprite(725.05, 209).loadGraphic(Paths.image('bios/hover'));
+		uiShadow.setGraphicSize(554);
+		uiShadow.updateHitbox();
+		uiShadow.scrollFactor.set();
+		add(uiShadow);
+		
+		//stupid fucking way to load al lof this shit so that it doesnt lag when selected i know just WHATEVER RAAGH IS UCK AT CODING FUUCK
+		
+		charSpr = new FlxSprite(867, 122.4);
+		charSpr.frames = Paths.getSparrowAtlas('characters/terios', 'shared');
+		charSpr.animation.addByPrefix('idle', 'Terios IDLE0', 24, false);
+		charSpr.animation.play('idle', true);
+		charSpr.setGraphicSize(283);
+		charSpr.updateHitbox();
+		charSpr.scrollFactor.set();
+		add(charSpr);
+		
+		remove(charSpr);
+		charSpr.kill();
+		charSpr = new FlxSprite(880.85, 209);
+		charSpr.frames = Paths.getSparrowAtlas('characters/Proto_Silver_Sonic', 'shared');
+		charSpr.animation.addByPrefix('idle', 'Proto IDLE', 24, false);
+		charSpr.animation.play('idle', true);
+		charSpr.setGraphicSize(208);
+		charSpr.updateHitbox();
+		charSpr.scrollFactor.set();
+		add(charSpr);
+		
+		remove(charSpr);
+		charSpr.kill();
+		charSpr = new FlxSprite(847.35, 83.45);
+		charSpr.frames = Paths.getSparrowAtlas('characters/DarkSonic_Assets', 'shared');
+		charSpr.animation.addByPrefix('idle', 'Dark Sonic IDLE', 24, false);
+		charSpr.animation.play('idle', true);
+		charSpr.setGraphicSize(278);
+		charSpr.updateHitbox();
+		charSpr.scrollFactor.set();
+		add(charSpr);
+		
+		remove(charSpr);
+		charSpr.kill();
+		charSpr = new FlxSprite(855.6, 107.5);
+		charSpr.frames = Paths.getSparrowAtlas('characters/impo', 'shared');
+		charSpr.animation.addByPrefix('idle', 'SAI IDLE', 24, false);
+		charSpr.animation.play('idle', true);
+		charSpr.setGraphicSize(305);
+		charSpr.updateHitbox();
+		charSpr.scrollFactor.set();
+		add(charSpr);
+		
+		var plate:FlxSprite = new FlxSprite(237.05, 535.05).loadGraphic(Paths.image('bios/plate'));
+		plate.setGraphicSize(812);
+		plate.updateHitbox();
+		plate.scrollFactor.set();
+		plate.antialiasing = ClientPrefs.globalAntialiasing;
+		add(plate);
+		
+		var chalkboard:FlxSprite = new FlxSprite(78, 96.05).loadGraphic(Paths.image('bios/chalkboard'));
+		chalkboard.setGraphicSize(562);
+		chalkboard.updateHitbox();
+		chalkboard.scrollFactor.set();
+		chalkboard.antialiasing = ClientPrefs.globalAntialiasing;
+		add(chalkboard);
+		
+		portrait = new FlxSprite(234, 128).loadGraphic(Paths.image('bios/portrait-dark'));
+		portrait.setGraphicSize(296);
+		portrait.updateHitbox();
+		portrait.scrollFactor.set();
+		portrait.antialiasing = ClientPrefs.globalAntialiasing;
+		add(portrait);
+		
+		remove(portrait);
+		portrait.destroy();
+		portrait = new FlxSprite(234, 128).loadGraphic(Paths.image('bios/portrait-silver'));
+		portrait.setGraphicSize(296);
+		portrait.updateHitbox();
+		portrait.scrollFactor.set();
+		portrait.antialiasing = ClientPrefs.globalAntialiasing;
+		add(portrait);
+		
+		remove(portrait);
+		portrait.destroy();
+		portrait = new FlxSprite(234, 128).loadGraphic(Paths.image('bios/portrait-terios'));
+		portrait.setGraphicSize(296);
+		portrait.updateHitbox();
+		portrait.scrollFactor.set();
+		portrait.antialiasing = ClientPrefs.globalAntialiasing;
+		add(portrait);
+		
+		remove(portrait);
+		portrait.destroy();
+		portrait = new FlxSprite(234, 128).loadGraphic(Paths.image('bios/portrait-sonai'));
+		portrait.setGraphicSize(296);
+		portrait.updateHitbox();
+		portrait.scrollFactor.set();
+		portrait.antialiasing = ClientPrefs.globalAntialiasing;
+		add(portrait);
+		
+		bioText = new FlxText(0, 0, 0, "Dark Sonic\rVoiced by Snap\rOne of Sonic's many super forms,\rachieved from his anger and the energy from counterfeit Chaos Emeralds \rAlthough, this only appeared once in Sonic X Season 3 Episode 67 Testing Time.", 12);
+		bioText.setFormat("PhantomMuff 1.5", 16, FlxColor.WHITE, CENTER);
+		bioText.scrollFactor.set();
+		bioText.setPosition(plate.getMidpoint().x - 325, plate.getMidpoint().y - 60);
+		add(bioText);
 
 		var scale:Float = 1;
 		/*if(optionShit.length > 6) {
 			scale = 6 / optionShit.length;
 		}*/
 
-		for (i in 0...optionShit.length)
-		{
-			var offset:Float = 108 - (Math.max(optionShit.length, 4) - 4) * 80;
-			var menuItem:FlxSprite = new FlxSprite(0, (i * 110)  + offset);
-			menuItem.scale.x = scale;
-			menuItem.scale.y = scale;
-			menuItem.frames = Paths.getSparrowAtlas('mainmenu/menu_' + optionShit[i]);
-			menuItem.animation.addByPrefix('idle', optionShit[i] + " basic", 24);
-			menuItem.animation.addByPrefix('selected', optionShit[i] + " white", 24);
-			menuItem.animation.play('idle');
-			menuItem.ID = i;
-			menuItem.setGraphicSize(Std.int(menuItem.width * 0.4));
-			menuItem.updateHitbox();
-			menuItem.screenCenter(X);
-			menuItems.add(menuItem);
-			var scr:Float = (optionShit.length - 4) * 0.135;
-			if(optionShit.length < 6) scr = 0;
-			menuItem.scrollFactor.set(0, scr);
-			menuItem.antialiasing = ClientPrefs.globalAntialiasing;
-		}
-
 		FlxG.camera.follow(camFollowPos, null, 1);
-
-		var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, "Psych Engine v" + psychEngineVersion, 12);
-		versionShit.scrollFactor.set();
-		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		add(versionShit);
-		var versionShit:FlxText = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin' v" + Application.current.meta.get('version'), 12);
-		versionShit.scrollFactor.set();
-		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		add(versionShit);
 
 		// NG.core.calls.event.logEvent('swag').send();
 
@@ -167,6 +225,9 @@ class BiosMenuState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
+		if (FlxG.sound.music != null)
+			Conductor.songPosition = FlxG.sound.music.time;
+			
 		if (FlxG.sound.music.volume < 0.8)
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
@@ -177,13 +238,13 @@ class BiosMenuState extends MusicBeatState
 
 		if (!selectedSomethin)
 		{
-			if (controls.UI_UP_P)
+			if (controls.UI_LEFT_P)
 			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changeItem(-1);
 			}
 
-			if (controls.UI_DOWN_P)
+			if (controls.UI_RIGHT_P)
 			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changeItem(1);
@@ -195,84 +256,7 @@ class BiosMenuState extends MusicBeatState
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				MusicBeatState.switchState(new MainMenuState());
 			}
-
-			if (controls.ACCEPT)
-			{
-				if (optionShit[curSelected] == 'donate')
-				{
-					CoolUtil.browserLoad('https://ninja-muffin24.itch.io/funkin');
-				}
-				else
-				{
-					selectedSomethin = true;
-					FlxG.sound.play(Paths.sound('confirmMenu'));
-
-					if(ClientPrefs.flashing) FlxFlicker.flicker(magenta, 1.1, 0.15, false);
-
-					menuItems.forEach(function(spr:FlxSprite)
-					{
-						if (curSelected != spr.ID)
-						{
-							FlxTween.tween(spr, {alpha: 0}, 0.4, {
-								ease: FlxEase.quadOut,
-								onComplete: function(twn:FlxTween)
-								{
-									spr.kill();
-								}
-							});
-						}
-						else
-						{
-							FlxFlicker.flicker(spr, 1, 0.06, false, false, function(flick:FlxFlicker)
-							{
-								var daChoice:String = optionShit[curSelected];
-
-								switch (daChoice)
-								{
-									case 'story_mode':
-										var songArray:Array<String> = [];
-										WeekData.reloadWeekFiles(true);
-										var leWeek:Array<Dynamic> = WeekData.weeksLoaded.get(WeekData.weeksList[0]).songs;
-										for (i in 0...leWeek.length) {
-											songArray.push(leWeek[i][0]);
-										}
-
-										// Nevermind that's stupid lmao
-										PlayState.storyPlaylist = songArray;
-										PlayState.isStoryMode = true;
-										//selectedWeek = true;
-
-										var diffic = '-hard';
-										if(diffic == null) diffic = '';
-
-										PlayState.storyDifficulty = 0;
-
-										PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase() + diffic, PlayState.storyPlaylist[0].toLowerCase());
-										PlayState.campaignScore = 0;
-										PlayState.campaignMisses = 0;
-										new FlxTimer().start(0.1, function(tmr:FlxTimer)
-										{
-											LoadingState.loadAndSwitchState(new PlayState(), true);
-											FreeplayState.destroyFreeplayVocals();
-										});
-									case 'freeplay':
-										MusicBeatState.switchState(new FreeplayState());
-									#if MODS_ALLOWED
-									case 'mods':
-										MusicBeatState.switchState(new ModsMenuState());
-									#end
-									case 'awards':
-										MusicBeatState.switchState(new AchievementsMenuState());
-									case 'credits':
-										MusicBeatState.switchState(new CreditsState());
-									case 'options':
-										LoadingState.loadAndSwitchState(new options.OptionsState());
-								}
-							});
-						}
-					});
-				}
-			}
+			
 			#if desktop
 			else if (FlxG.keys.anyJustPressed(debugKeys))
 			{
@@ -283,37 +267,91 @@ class BiosMenuState extends MusicBeatState
 		}
 
 		super.update(elapsed);
-
-		menuItems.forEach(function(spr:FlxSprite)
-		{
-			spr.screenCenter(X);
-		});
 	}
+	
+	override function beatHit()
+	{
+		super.beatHit();
+
+		if (charSpr != null && curBeat % 1 == 0)
+			charSpr.animation.play('idle', true);
+	}
+
 
 	function changeItem(huh:Int = 0)
 	{
 		curSelected += huh;
-
-		if (curSelected >= menuItems.length)
+		
+		bioText.fieldWidth = -5;
+		bioText.wordWrap = false;
+		bioText.autoSize = false;
+		if (curSelected >= chars.length) //revert back to without - 1
 			curSelected = 0;
 		if (curSelected < 0)
-			curSelected = menuItems.length - 1;
-
-		menuItems.forEach(function(spr:FlxSprite)
+			curSelected = chars.length - 1; //revert back to - 1
+			
+		remove(portrait);
+		portrait.destroy();
+		portrait = new FlxSprite(234, 128).loadGraphic(Paths.image('bios/portrait-'+chars[curSelected]));
+		portrait.setGraphicSize(296);
+		portrait.updateHitbox();
+		portrait.scrollFactor.set();
+		portrait.antialiasing = ClientPrefs.globalAntialiasing;
+		add(portrait);
+			
+		switch (curSelected) // 0 = silver, 1 = dark, 2 = terios, 3 = sonai
 		{
-			spr.animation.play('idle');
-			spr.updateHitbox();
-
-			if (spr.ID == curSelected)
-			{
-				spr.animation.play('selected');
-				var add:Float = 0;
-				if(menuItems.length > 4) {
-					add = menuItems.length * 8;
-				}
-				camFollow.setPosition(spr.getGraphicMidpoint().x, spr.getGraphicMidpoint().y - add);
-				spr.centerOffsets();
-			}
-		});
+			case 0:
+				remove(charSpr);
+				charSpr.kill();
+				charSpr = new FlxSprite(880.85, 209);
+				charSpr.frames = Paths.getSparrowAtlas('characters/Proto_Silver_Sonic', 'shared');
+				charSpr.animation.addByPrefix('idle', 'Proto IDLE', 24, false);
+				charSpr.animation.play('idle', true);
+				charSpr.setGraphicSize(208);
+				charSpr.updateHitbox();
+				charSpr.scrollFactor.set();
+				add(charSpr);
+				
+				bioText.text = "Silver Sonic\nVoiced by Luckiibean\nSonic's first robotic doppelganger created by Dr.Eggman.\n\nThis guy has made an appearance in:\nSonic 2 8-BIT, Sonic Mania and both the Archie and IDW comics.";
+			case 1:
+				remove(charSpr);
+				charSpr.kill();
+				charSpr = new FlxSprite(847.35, 83.45);
+				charSpr.frames = Paths.getSparrowAtlas('characters/DarkSonic_Assets', 'shared');
+				charSpr.animation.addByPrefix('idle', 'Dark Sonic IDLE', 24, false);
+				charSpr.animation.play('idle', true);
+				charSpr.setGraphicSize(278);
+				charSpr.updateHitbox();
+				charSpr.scrollFactor.set();
+				add(charSpr);
+				
+				bioText.text = "Dark Sonic\nVoiced by Snap\nOne of Sonic's many super forms,\nmanifested from his anger & the energy from counterfeit Chaos Emeralds\nAlthough, he only appeared once in\nSonic X in The Season 3 Episode: Testing Time.";
+			case 2:
+				remove(charSpr);
+				charSpr.kill();
+				charSpr = new FlxSprite(867, 122.4);
+				charSpr.frames = Paths.getSparrowAtlas('characters/terios', 'shared');
+				charSpr.animation.addByPrefix('idle', 'Terios IDLE0', 24, false);
+				charSpr.animation.play('idle', true);
+				charSpr.setGraphicSize(283);
+				charSpr.updateHitbox();
+				charSpr.scrollFactor.set();
+				add(charSpr);
+				
+				bioText.text = "Terios\nVoiced by Begwhi\nA character based on one of Shadow's original character designs for:\nSonic Adventure 2\n\nGiven the name Terios (or Umbra) by the community.";
+			case 3:
+				remove(charSpr);
+				charSpr.kill();
+				charSpr = new FlxSprite(855.6, 107.5);
+				charSpr.frames = Paths.getSparrowAtlas('characters/impo', 'shared');
+				charSpr.animation.addByPrefix('idle', 'SAI IDLE', 24, false);
+				charSpr.animation.play('idle', true);
+				charSpr.setGraphicSize(305);
+				charSpr.updateHitbox();
+				charSpr.scrollFactor.set();
+				add(charSpr);
+				bioText.text = "Extrapolator/SonAI\nExtrapolator (or SonAI for short) is Simply EJ's EXE take on the blue blur. \nIn summary, its an AI that was meant to assist in making Sonic 2 that was\nreactivated in a corrupted copy of the game,\nyears after it's released causing it to be corrupted itself.";
+		}
 	}
 }
