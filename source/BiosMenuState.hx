@@ -41,8 +41,6 @@ class BiosMenuState extends MusicBeatState
 		'terios',
 		'sonai'
 	];
-
-	var magenta:FlxSprite;
 	var camFollow:FlxObject;
 	var camFollowPos:FlxObject;
 	var debugKeys:Array<FlxKey>;
@@ -71,13 +69,10 @@ class BiosMenuState extends MusicBeatState
 		add(camFollow);
 		add(camFollowPos);
 
-		magenta = new FlxSprite(0).loadGraphic(Paths.image('menuDesat'));
-		magenta.scrollFactor.set(0, 0);
-		magenta.updateHitbox();
-		magenta.screenCenter();
-		magenta.antialiasing = ClientPrefs.globalAntialiasing;
-		magenta.color = 0xFFFF282E;
-		add(magenta);
+		var bg:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('bios/bg'));
+		bg.scrollFactor.set(0, 0);
+		bg.antialiasing = ClientPrefs.globalAntialiasing;
+		add(bg);
 		
 		// magenta.scrollFactor.set();
 		
@@ -87,7 +82,7 @@ class BiosMenuState extends MusicBeatState
 		uiShadow.scrollFactor.set();
 		add(uiShadow);
 		
-		//stupid fucking way to load al lof this shit so that it doesnt lag when selected i know just WHATEVER RAAGH IS UCK AT CODING FUUCK
+		//stupid fucking way to precache al lof this shit so that it doesnt lag when selected i know just WHATEVER RAAGH IS UCK AT CODING FUUCK
 		
 		charSpr = new FlxSprite(867, 122.4);
 		charSpr.frames = Paths.getSparrowAtlas('characters/terios', 'shared');
