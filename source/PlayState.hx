@@ -2293,12 +2293,14 @@ class PlayState extends MusicBeatState
 		else
 			iconP2.animation.curAnim.curFrame = 0;
 
+		#if debug
 		if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene) {
 			persistentUpdate = false;
 			paused = true;
 			cancelMusicFadeTween();
 			MusicBeatState.switchState(new CharacterEditorState(SONG.player2));
 		}
+		#end
 
 		if (startingSong)
 		{
@@ -2571,6 +2573,7 @@ class PlayState extends MusicBeatState
 
 	function openChartEditor()
 	{
+		#if debug
 		persistentUpdate = false;
 		paused = true;
 		cancelMusicFadeTween();
@@ -2579,6 +2582,7 @@ class PlayState extends MusicBeatState
 
 		#if desktop
 		DiscordClient.changePresence("Chart Editor", null, null, true);
+		#end
 		#end
 	}
 
