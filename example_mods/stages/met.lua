@@ -1,17 +1,25 @@
 function onCreate()
 	
 	--Makes the gloop sprite and marks down its animations
-	makeLuaSprite('Background','stages/met/floor',0, -28.1)
+	makeLuaSprite('Background','stages/met/floor',0, 0)
 	--setProperty('Background.antialiasing',false)
 	
-	makeAnimatedLuaSprite('badnik', 'stages/met/badnik', 1901.85, 666.95)
-	addAnimationByPrefix('badnik', 'dance', 'badnikbop', 24, false)
-	objectPlayAnimation('badnik', 'dance', true)
-	setGraphicSize('badnik', getProperty('badnik.width') * 1.5)
-	updateHitbox('badnik')
+	makeAnimatedLuaSprite('grounder', 'stages/met/grounder', 56.9, 620.25)
+	addAnimationByPrefix('grounder', 'dance', 'grounder', 26, false)
+	objectPlayAnimation('grounder', 'dance', true)
+	
+	makeAnimatedLuaSprite('octopus', 'stages/met/octopus', 1910.15, 1141.35)
+	addAnimationByPrefix('octopus', 'dance', 'octopus', 26, false)
+	objectPlayAnimation('octopus', 'dance', true)
+	
+	makeAnimatedLuaSprite('monkey', 'stages/met/monkey', 1144.85, 146.3)
+	addAnimationByPrefix('monkey', 'dance', 'monkey', 26, false)
+	objectPlayAnimation('monkey', 'dance', true)
 
+	addLuaSprite('monkey',false)
 	addLuaSprite('Background',false)
-	addLuaSprite('badnik',false)
+	addLuaSprite('grounder',false)
+	addLuaSprite('octopus',false)
 
 	--close(true)	
 end
@@ -20,7 +28,9 @@ function onBeatHit()
 	-- triggered 4 times per section
 	
 	if curBeat % 2 == 0 then
-		objectPlayAnimation('badnik', 'dance', true);
+		objectPlayAnimation('grounder', 'dance', true);
+		objectPlayAnimation('octopus', 'dance', true);
+		objectPlayAnimation('monkey', 'dance', true);
 	end
 	
 end
@@ -36,6 +46,8 @@ end
 
 function onCountdownTick(counter)
 	if curBeat % 2 == 0 then
-		objectPlayAnimation('badnik', 'dance', true);
+		objectPlayAnimation('grounder', 'dance', true);
+		objectPlayAnimation('octopus', 'dance', true);
+		objectPlayAnimation('monkey', 'dance', true);
 	end
 end

@@ -1,19 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TextureAtlas imagePath="monkey.png">
-	<!-- Created with Adobe Animate version 16.0.1.119 -->
+	<!-- Created with Adobe Animate version 20.0.3.25487 -->
 	<!-- http://www.adobe.com/products/animate.html -->
-	<SubTexture name="monkeybop0000" x="0" y="0" width="448" height="724" frameX="0" frameY="-3" frameWidth="448" frameHeight="727"/>
-	<SubTexture name="monkeybop0001" x="0" y="0" width="448" height="724" frameX="0" frameY="-3" frameWidth="448" frameHeight="727"/>
-	<SubTexture name="monkeybop0002" x="448" y="0" width="440" height="726" frameX="-4" frameY="-1" frameWidth="448" frameHeight="727"/>
-	<SubTexture name="monkeybop0003" x="448" y="0" width="440" height="726" frameX="-4" frameY="-1" frameWidth="448" frameHeight="727"/>
-	<SubTexture name="monkeybop0004" x="0" y="726" width="437" height="727" frameX="-5" frameY="0" frameWidth="448" frameHeight="727"/>
-	<SubTexture name="monkeybop0005" x="0" y="726" width="437" height="727" frameX="-5" frameY="0" frameWidth="448" frameHeight="727"/>
-	<SubTexture name="monkeybop0006" x="0" y="726" width="437" height="727" frameX="-5" frameY="0" frameWidth="448" frameHeight="727"/>
-	<SubTexture name="monkeybop0007" x="0" y="726" width="437" height="727" frameX="-5" frameY="0" frameWidth="448" frameHeight="727"/>
-	<SubTexture name="monkeybop0008" x="0" y="726" width="437" height="727" frameX="-5" frameY="0" frameWidth="448" frameHeight="727"/>
-	<SubTexture name="monkeybop0009" x="0" y="726" width="437" height="727" frameX="-5" frameY="0" frameWidth="448" frameHeight="727"/>
-	<SubTexture name="monkeybop0010" x="0" y="726" width="437" height="727" frameX="-5" frameY="0" frameWidth="448" frameHeight="727"/>
-	<SubTexture name="monkeybop0011" x="0" y="726" width="437" height="727" frameX="-5" frameY="0" frameWidth="448" frameHeight="727"/>
-	<SubTexture name="monkeybop0012" x="0" y="726" width="437" height="727" frameX="-5" frameY="0" frameWidth="448" frameHeight="727"/>
-	<SubTexture name="monkeybop0013" x="0" y="726" width="437" height="727" frameX="-5" frameY="0" frameWidth="448" frameHeight="727"/>
+	<SubTexture name="monkey0000" x="5" y="5" width="645" height="1248" frameX="0" frameY="-52" frameWidth="645" frameHeight="1301"/>
+	<SubTexture name="monkey0001" x="5" y="5" width="645" height="1248" frameX="0" frameY="-52" frameWidth="645" frameHeight="1301"/>
+	<SubTexture name="monkey0002" x="655" y="5" width="611" height="1283" frameX="-17" frameY="-17" frameWidth="645" frameHeight="1301"/>
+	<SubTexture name="monkey0003" x="655" y="5" width="611" height="1283" frameX="-17" frameY="-17" frameWidth="645" frameHeight="1301"/>
+	<SubTexture name="monkey0004" x="1271" y="5" width="593" height="1294" frameX="-26" frameY="-7" frameWidth="645" frameHeight="1301"/>
+	<SubTexture name="monkey0005" x="1271" y="5" width="593" height="1294" frameX="-26" frameY="-7" frameWidth="645" frameHeight="1301"/>
+	<SubTexture name="monkey0006" x="1869" y="5" width="593" height="1298" frameX="-26" frameY="-3" frameWidth="645" frameHeight="1301"/>
+	<SubTexture name="monkey0007" x="1869" y="5" width="593" height="1298" frameX="-26" frameY="-3" frameWidth="645" frameHeight="1301"/>
+	<SubTexture name="monkey0008" x="2467" y="5" width="588" height="1300" frameX="-28" frameY="0" frameWidth="645" frameHeight="1301"/>
 </TextureAtlas>
