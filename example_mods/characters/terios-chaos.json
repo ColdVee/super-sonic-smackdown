@@ -1,81 +1,81 @@
 {
 	"animations": [
 		{
+			"loop": false,
 			"offsets": [
 				42,
 				0
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "idle",
-			"indices": [],
-			"name": "Terios IDLE CHAOS"
+			"fps": 24,
+			"name": "Terios IDLE CHAOS",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				128,
 				72
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singUP",
-			"indices": [],
-			"name": "Terios UP CHAOS"
+			"fps": 24,
+			"name": "Terios UP CHAOS",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				85,
 				40
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singLEFT",
-			"indices": [],
-			"name": "Terios LEFT CHAOS"
+			"fps": 24,
+			"name": "Terios LEFT CHAOS",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				54,
 				18
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singRIGHT",
-			"indices": [],
-			"name": "Terios RIGHT CHAOS"
+			"fps": 24,
+			"name": "Terios RIGHT CHAOS",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				190,
 				-50
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singDOWN",
-			"indices": [],
-			"name": "Terios DOWN CHAOS"
+			"fps": 24,
+			"name": "Terios DOWN CHAOS",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				6,
 				-8
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "suck",
-			"indices": [],
-			"name": "Terios SUCK"
+			"fps": 24,
+			"name": "Terios SUCK",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				127,
 				162
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "chaos",
-			"indices": [],
-			"name": "Terios CHAOS"
+			"fps": 24,
+			"name": "Terios CHAOS",
+			"indices": []
 		}
 	],
 	"no_antialiasing": false,
@@ -96,5 +96,5 @@
 		0
 	],
 	"sing_duration": 6.1,
-	"scale": 1
+	"scale": 1.1
 }
