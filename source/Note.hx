@@ -105,7 +105,7 @@ class Note extends FlxSprite
 					if (!isSustainNote)
 						offsetY = -30;
 					else if(isSustainNote && !animation.curAnim.name.endsWith('end'))
-						offsetY -= 10;
+						offsetY -= 100;
 						
 					if (mustPress)
 						offsetX -= 640;
@@ -366,11 +366,25 @@ class Note extends FlxSprite
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
-		
-		if (isSustainNote && animation.curAnim.name.endsWith('end') && !changedY && noteType == 'Chaos')
+		if (noteType == 'Chaos')
 		{
-			changedY = true;
-			offsetY += 70;
+			if (prevNote != null && isSustainNote)
+			{
+				if (!changedY && !animation.curAnim.name.endsWith('end'))
+				{
+					changedY = true;
+					offsetY -= 63;
+				}
+				offsetX = prevNote.offsetX;
+				if (!prevNote.isSustainNote)
+					offsetX += 35;
+			}
+				
+			if (isSustainNote && animation.curAnim.name.endsWith('end') && !changedY)
+			{
+				changedY = true;
+				offsetY += 7;
+			}
 		}
 		if (mustPress)
 		{

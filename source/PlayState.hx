@@ -2506,7 +2506,8 @@ class PlayState extends MusicBeatState
 					{
 						daNote.notesMoving = true;
 						daNote.animation.curAnim.paused = false;
-						FlxTween.tween(daNote, {offsetX: daNote.ogX}, 0.4, {ease: FlxEase.cubeOut});
+						if (!daNote.isSustainNote)
+							FlxTween.tween(daNote, {offsetX: daNote.ogX}, 0.4, {ease: FlxEase.cubeOut});
 					}
 				}
 			});
@@ -3783,6 +3784,13 @@ class PlayState extends MusicBeatState
 		if(note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) {
 			time += 0.15;
 		}
+		else if (note.noteType == 'Chaos')
+		{
+			if (note.isSustainNote && !note.animation.curAnim.name.endsWith('end'))
+				note.offsetY = 0;
+			else if (note.isSustainNote && note.animation.curAnim.name.endsWith('end'))
+				note.offsetY += 7;
+		}
 		StrumPlayAnim(true, Std.int(Math.abs(note.noteData)) % 4, time);
 		note.hitByOpponent = true;
 
@@ -3814,9 +3822,7 @@ class PlayState extends MusicBeatState
 							boyfriend.playAnim('hurt', true);
 							boyfriend.specialAnim = true;
 						}
-					case 'Chaos':
-						if (note.animation.curAnim.name.endsWith('end') && note.isSustainNote)
-							note.offsetY -= 70;
+					
 				}
 				
 				note.wasGoodHit = true;
@@ -3834,6 +3840,13 @@ class PlayState extends MusicBeatState
 				combo += 1;
 				popUpScore(note);
 				if(combo > 9999) combo = 9999;
+			}
+			else if (note.noteType == 'Chaos')
+			{
+				if (note.isSustainNote && !note.animation.curAnim.name.endsWith('end'))
+					note.offsetY = 0;
+				else if (note.isSustainNote && note.animation.curAnim.name.endsWith('end'))
+					note.offsetY += 7;
 			}
 			health += note.hitHealth * healthGain;
 
