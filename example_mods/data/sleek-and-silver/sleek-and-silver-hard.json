@@ -1,7 +1,7 @@
 {
 	"song": {
 		"sectionLengths": [],
-		"player1": "bf",
+		"player1": "bf-cam",
 		"events": [
 			[
 				10901.1627906977,
@@ -4885,7 +4885,7 @@
 		"validScore": true,
 		"sections": 0,
 		"needsVoices": true,
-		"speed": 2.3,
+		"speed": 2.7,
 		"bpm": 172
 	}
 }
