@@ -30,6 +30,7 @@ class Note extends FlxSprite
 	public var hitByOpponent:Bool = false;
 	public var noteWasHit:Bool = false;
 	public var prevNote:Note;
+	public var isHoldEnd:Bool = false;
 
 	public var sustainLength:Float = 0;
 	public var isSustainNote:Bool = false;
@@ -58,10 +59,12 @@ class Note extends FlxSprite
 	public var noteSplashSat:Float = 0;
 	public var noteSplashBrt:Float = 0;
 
+	public var ogX:Float = 0;
 	public var offsetX:Float = 0;
 	public var offsetY:Float = 0;
 	public var offsetAngle:Float = 0;
 	public var multAlpha:Float = 1;
+	public var notesMoving:Bool = false;
 
 	public var copyX:Bool = true;
 	public var copyY:Bool = true;
@@ -74,6 +77,7 @@ class Note extends FlxSprite
 	public var texture(default, set):String = null;
 
 	public var noAnimation:Bool = false;
+	public var changedY:Bool = false;
 	public var hitCausesMiss:Bool = false;
 	public var distance:Float = 2000;//plan on doing scroll directions soon -bb
 
@@ -93,6 +97,20 @@ class Note extends FlxSprite
 
 		if(noteData > -1 && noteType != value) {
 			switch(value) {
+				case 'Chaos':
+					ogX = offsetX;
+					ogX -= 40;
+					set_texture('chaosNotes');
+					animation.curAnim.paused = true;
+					if (!isSustainNote)
+						offsetY = -30;
+					else if(isSustainNote && !animation.curAnim.name.endsWith('end'))
+						offsetY -= 10;
+						
+					if (mustPress)
+						offsetX -= 640;
+					else
+						offsetX = 640;
 				case 'Hurt Note':
 					ignoreNote = mustPress;
 					reloadNote('HURT');
@@ -168,7 +186,7 @@ class Note extends FlxSprite
 			alpha = 0.6;
 			multAlpha = 0.6;
 			if(ClientPrefs.downScroll) flipY = true;
-
+	
 			offsetX += width / 2;
 			copyAngle = false;
 
@@ -304,22 +322,22 @@ class Note extends FlxSprite
 	}
 
 	function loadNoteAnims() {
-		animation.addByPrefix('greenScroll', 'green0');
-		animation.addByPrefix('redScroll', 'red0');
-		animation.addByPrefix('blueScroll', 'blue0');
-		animation.addByPrefix('purpleScroll', 'purple0');
+		animation.addByPrefix('greenScroll', 'green0', 24, false);
+		animation.addByPrefix('redScroll', 'red0', 24, false);
+		animation.addByPrefix('blueScroll', 'blue0', 24, false);
+		animation.addByPrefix('purpleScroll', 'purple0', 24, false);
 
 		if (isSustainNote)
 		{
-			animation.addByPrefix('purpleholdend', 'pruple end hold');
-			animation.addByPrefix('greenholdend', 'green hold end');
-			animation.addByPrefix('redholdend', 'red hold end');
-			animation.addByPrefix('blueholdend', 'blue hold end');
+			animation.addByPrefix('purpleholdend', 'pruple end hold', 24, false);
+			animation.addByPrefix('greenholdend', 'green hold end', 24, false);
+			animation.addByPrefix('redholdend', 'red hold end', 24, false);
+			animation.addByPrefix('blueholdend', 'blue hold end', 24, false);
 
-			animation.addByPrefix('purplehold', 'purple hold piece');
-			animation.addByPrefix('greenhold', 'green hold piece');
-			animation.addByPrefix('redhold', 'red hold piece');
-			animation.addByPrefix('bluehold', 'blue hold piece');
+			animation.addByPrefix('purplehold', 'purple hold piece', 24, false);
+			animation.addByPrefix('greenhold', 'green hold piece', 24, false);
+			animation.addByPrefix('redhold', 'red hold piece', 24, false);
+			animation.addByPrefix('bluehold', 'blue hold piece', 24, false);
 		}
 
 		setGraphicSize(Std.int(width * 0.7));
@@ -348,7 +366,12 @@ class Note extends FlxSprite
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
-
+		
+		if (isSustainNote && animation.curAnim.name.endsWith('end') && !changedY && noteType == 'Chaos')
+		{
+			changedY = true;
+			offsetY += 70;
+		}
 		if (mustPress)
 		{
 			// ok river

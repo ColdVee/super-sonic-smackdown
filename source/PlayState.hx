@@ -2076,6 +2076,7 @@ class PlayState extends MusicBeatState
 	var startedCountdown:Bool = false;
 	var canPause:Bool = true;
 	var limoSpeed:Float = 0;
+	var notesMoving:Bool = false;
 
 	override public function update(elapsed:Float)
 	{
@@ -2495,6 +2496,16 @@ class PlayState extends MusicBeatState
 					daNote.kill();
 					notes.remove(daNote, true);
 					daNote.destroy();
+				}
+				
+				if (daNote.noteType == 'Chaos')
+				{
+					if (Conductor.songPosition >= (daNote.strumTime - 500) && !daNote.notesMoving)
+					{
+						daNote.notesMoving = true;
+						daNote.animation.curAnim.paused = false;
+						FlxTween.tween(daNote, {offsetX: daNote.ogX}, 0.4, {ease: FlxEase.cubeOut});
+					}
 				}
 			});
 		}
@@ -3799,6 +3810,9 @@ class PlayState extends MusicBeatState
 							boyfriend.playAnim('hurt', true);
 							boyfriend.specialAnim = true;
 						}
+					case 'Chaos':
+						if (note.animation.curAnim.name.endsWith('end') && note.isSustainNote)
+							note.offsetY -= 70;
 				}
 				
 				note.wasGoodHit = true;

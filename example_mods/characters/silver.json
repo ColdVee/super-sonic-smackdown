@@ -54,6 +54,31 @@
 			"fps": 24,
 			"name": "Proto RIGHT",
 			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				714,
+				770
+			],
+			"anim": "explode",
+			"fps": 24,
+			"name": "big boomboom",
+			"indices": []
+		},
+		{
+			"offsets": [
+				716,
+				771
+			],
+			"indices": [
+				34,
+				34
+			],
+			"fps": 24,
+			"anim": "idle-dead",
+			"loop": false,
+			"name": "big boomboom"
 		}
 	],
 	"no_antialiasing": false,
