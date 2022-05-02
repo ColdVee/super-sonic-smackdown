@@ -29,6 +29,7 @@ class BiosMenuState extends MusicBeatState
 	public static var psychEngineVersion:String = '0.5.1-git'; //This is also used for Discord RPC
 	public static var curSelected:Int = 0;
 	var bioText:FlxText;
+	var charName:FlxText;
 	private var camGame:FlxCamera;
 	private var camAchievement:FlxCamera;
 	
@@ -86,30 +87,48 @@ class BiosMenuState extends MusicBeatState
 		chalkboard.antialiasing = ClientPrefs.globalAntialiasing;
 		add(chalkboard);
 		
-		//stupid fucking way to precache al lof this shit so that it doesnt lag when selected i know just WHATEVER RAAGH IS UCK AT CODING FUUCK
+		charName = new FlxText(0, 0, 0, "TERIOS", 36);
+		charName.setFormat("NiseSegaSonic", 60, FlxColor.WHITE);
+		charName.screenCenter();
+		charName.y -= 320;
+		charName.x -= 120;
+		charName.borderStyle = OUTLINE;
+		charName.borderColor = FlxColor.BLACK;
+		charName.borderSize = 3;
+		charName.antialiasing = ClientPrefs.globalAntialiasing;
+		charName.scrollFactor.set();
+		charName.alignment = CENTER;
+		add(charName);
 		
 		for (i in 0...chars.length)
 		{
 			var charSpr:FlxSprite = new FlxSprite();
 			charSpr.frames = Paths.getSparrowAtlas('bios/menu_chars');
-			charSpr.animation.addByPrefix(chars[i], chars[i], 24, false);
+			var frameIndices:Array<Int> = CoolUtil.numberArray(13, 0);
+			for (i in 0...5)
+			{
+				frameIndices.push(12);
+				frameIndices.push(13);
+				trace(frameIndices);
+			}
+			charSpr.animation.addByIndices(chars[i], chars[i], frameIndices, "", 24, false);
 			charSpr.animation.play(chars[i], true);
 			switch (chars[i])
 			{
 				case 'silver':
-					bios[i] = "Silver Sonic\nVoiced by Luckiibean\nSonic's first robotic doppelganger created by Dr.Eggman.\n\nThis guy has made an appearance in:\nSonic 2 8-BIT, Sonic Mania and both the Archie and IDW comics.";
+					bios[i] = "Voiced by Luckiibean\n\nSonic's first robotic doppelganger created by Dr.Eggman.\n\nThis guy has made an appearance in:\nSonic 2 8-BIT, Sonic Mania and both the Archie and IDW comics.";
 					charSpr.setGraphicSize(208);
 					charSpr.setPosition(880.85, 209);
 				case 'dark':
-					bios[i] = "Dark Sonic\nVoiced by Snap\nOne of Sonic's many super forms,\nmanifested from his anger & the energy from counterfeit Chaos Emeralds\nAlthough, he only appeared once in\nSonic X in The Season 3 Episode: Testing Time.";
+					bios[i] = "Voiced by Snap\nOne of Sonic's many super forms,\nmanifested from his anger & the energy from counterfeit Chaos Emeralds\nAlthough, he only appeared once in\nSonic X in The Season 3 Episode: Testing Time.";
 					charSpr.setGraphicSize(273);
 					charSpr.setPosition(847.35, 83.45);
 				case 'terios':
-					bios[i] = "Terios\nVoiced by Begwhi\nA character based on one of Shadow's original character designs for:\nSonic Adventure 2\n\nGiven the name Terios (or Umbra) by the community.";
+					bios[i] = "Voiced by Begwhi\nA character based on one of Shadow's original character designs for:\nSonic Adventure 2\n\nGiven the name Terios (or Umbra) by the community.";
 					charSpr.setGraphicSize(283);
 					charSpr.setPosition(867, 122.4);
 				case 'sonai':
-					bios[i] = "Extrapolator/SonAI\nExtrapolator (or SonAI for short) is Simply EJ's EXE take on the blue blur. \nIn summary, its an AI that was meant to assist in making Sonic 2 that was\nreactivated in a corrupted copy of the game,\nyears after it's released causing it to be corrupted itself.";
+					bios[i] = "This is Simply EJ's EXE take on the blue blur. \n\nIn summary, its an AI that was meant to assist in making Sonic 2 that was\nreactivated in a corrupted copy of the game,\nyears after it's released causing it to be corrupted itself.";
 					charSpr.setGraphicSize(305);
 					charSpr.setPosition(855.6, 107.5);
 			}
@@ -229,7 +248,7 @@ class BiosMenuState extends MusicBeatState
 	{
 		super.beatHit();
 
-		if (charSprites[chars[curSelected]] != null && curBeat % 1 == 0)
+		if (charSprites[chars[curSelected]] != null && curBeat % 2 == 0)
 			charSprites[chars[curSelected]].animation.play(chars[curSelected], true);
 	}
 
@@ -246,7 +265,7 @@ class BiosMenuState extends MusicBeatState
 		{
 			if (sprite.ID == curSelected)
 			{
-				charSprites[chars[curSelected]].animation.play(chars[curSelected], true);
+				sprite.animation.play(chars[curSelected], true);
 				sprite.visible = true;
 			}
 			else
@@ -262,5 +281,16 @@ class BiosMenuState extends MusicBeatState
 		}
 		
 		bioText.text = bios[curSelected];
+		if (chars[curSelected] != 'dark')
+			charName.text = chars[curSelected].toUpperCase();
+		else
+			charName.text = chars[curSelected].toUpperCase() + ' SONIC';
+		switch (chars[curSelected])
+		{
+			case "dark":
+				charName.offset.x = 0;
+			default:
+				charName.offset.x = -100;
+		}
 	}
 }

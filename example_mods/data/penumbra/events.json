@@ -1107,12 +1107,32 @@
 						"0.03"
 					]
 				]
+			],
+			[
+				102182.741116751,
+				[
+					[
+						"Play Animation",
+						"yeah",
+						"gf"
+					]
+				]
+			],
+			[
+				103096.446700508,
+				[
+					[
+						"Play Animation",
+						"yeah-loop",
+						"gf"
+					]
+				]
 			]
 		],
 		"notes": [],
 		"splashSkin": null,
 		"validScore": false,
-		"gfVersion": "gf",
+		"gfVersion": "sonic",
 		"bpm": 197,
 		"arrowSkin": null,
 		"needsVoices": true,

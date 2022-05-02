@@ -219,6 +219,7 @@ class PlayState extends MusicBeatState
 	var wiggleShit:WiggleEffect = new WiggleEffect();
 	var bgGhouls:BGSprite;
 
+	public var dmgCooldown:Float = 0;
 	public var songScore:Int = 0;
 	public var songHits:Int = 0;
 	public var songMisses:Int = 0;
@@ -236,6 +237,7 @@ class PlayState extends MusicBeatState
 	// how big to stretch the pixel art assets
 	public static var daPixelZoom:Float = 6;
 	private var singAnimations:Array<String> = ['singLEFT', 'singDOWN', 'singUP', 'singRIGHT'];
+	var ringsArray:Map<Int, Dynamic> = [];
 
 	public var inCutscene:Bool = false;
 	public var skipCountdown:Bool = false;
@@ -2091,6 +2093,11 @@ class PlayState extends MusicBeatState
 		{
 			moveCameraSection(Std.int(curStep / 16));
 		}
+		
+		for (ring in ringsArray)
+		{
+			ring.alpha = FlxG.game.ticks % 2;
+		}
 
 		switch (curStage)
 		{
@@ -3689,6 +3696,42 @@ class PlayState extends MusicBeatState
 		if(daNote.gfNote) {
 			char = gf;
 		}
+		
+		/*if (char.curCharacter == 'sonic' && dmgCooldown <= 0)
+		{
+			dmgCooldown = 2;
+			var ringCount:Int = FlxG.random.int(4, 10);
+			FlxG.sound.play(Paths.sound('ring_loss'));
+			for (i in 0...ringCount)
+			{
+				health -= i/100 * healthLoss;
+				var yOfs:Int = FlxG.random.int(-3, 3);
+				var xOfs:Int = FlxG.random.int(-13, 13);
+				var ring:FlxSprite = new FlxSprite(char.getMidpoint().x - 70, char.getMidpoint().y - 100 + (50 * yOfs)).loadGraphic(Paths.image('ring'), true, 16, 16);
+				ring.setGraphicSize(Std.int(ring.width * 8));
+				ring.updateHitbox();
+				ring.animation.add('spin', [0, 1, 2, 3], 12, true);
+				ring.animation.play('spin', true);
+				ring.scrollFactor.set(1, 1);
+				
+				FlxTween.tween(ring, {x: (ring.x + (xOfs * 70))}, 0.7, {ease: FlxEase.sineOut});
+				
+				FlxTween.tween(ring, { y: (ring.y - 80)}, 0.2, {ease: FlxEase.sineOut,
+					onComplete: function(twn:FlxTween)
+					{
+						FlxTween.tween(ring, { y: (ring.y + 800)}, 0.5, {ease: FlxEase.sineIn,
+							onComplete: function(twn:FlxTween)
+							{
+								ring.destroy();
+							}
+						});
+					}
+				});
+				ringsArray[i] = ring;
+				ring.cameras = [camGame];
+				add(ring);
+			}
+		}*/
 
 		if(char.hasMissAnimations)
 		{
@@ -3769,7 +3812,7 @@ class PlayState extends MusicBeatState
 
 			var char:Character = dad;
 			var animToPlay:String = singAnimations[Std.int(Math.abs(note.noteData))] + altAnim;
-			if(note.gfNote) {
+			if(note.gfNote || note.noteType == 'Ghost') {
 				char = gf;
 			}
 
@@ -3784,13 +3827,16 @@ class PlayState extends MusicBeatState
 		if(note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) {
 			time += 0.15;
 		}
-		else if (note.noteType == 'Chaos')
+		
+		if (note.noteType == 'Chaos')
 		{
 			if (note.isSustainNote && !note.animation.curAnim.name.endsWith('end'))
 				note.offsetY = 0;
 			else if (note.isSustainNote && note.animation.curAnim.name.endsWith('end'))
 				note.offsetY += 7;
 		}
+		
+		if (note.noteType != 'Ghost')
 		StrumPlayAnim(true, Std.int(Math.abs(note.noteData)) % 4, time);
 		note.hitByOpponent = true;
 

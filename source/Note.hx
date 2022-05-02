@@ -97,6 +97,8 @@ class Note extends FlxSprite
 
 		if(noteData > -1 && noteType != value) {
 			switch(value) {
+				case 'Ghost':
+					visible = false;
 				case 'Chaos':
 					ogX = offsetX;
 					ogX -= 40;

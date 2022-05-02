@@ -1,6 +1,6 @@
 {
 	"song": {
-		"speed": 2.6,
+		"speed": 2.7,
 		"stage": "scrambledegg",
 		"player1": "bf-cam",
 		"player2": "silver",
@@ -620,26 +620,6 @@
 				89302.3255813953,
 				[
 					[
-						"Flash Camera",
-						"0.8",
-						""
-					],
-					[
-						"Screen Shake",
-						"1.2, 0.008",
-						"1.2, 0.01"
-					],
-					[
-						"Add Camera Zoom",
-						"0.18",
-						"0.25"
-					]
-				]
-			],
-			[
-				89302.3255813953,
-				[
-					[
 						"Alt Idle Animation",
 						"dad",
 						"-dead"
@@ -648,6 +628,21 @@
 						"Play Animation",
 						"explode",
 						"dad"
+					],
+					[
+						"Flash Camera",
+						"0.5",
+						""
+					],
+					[
+						"Add Camera Zoom",
+						"0.2",
+						"0.3"
+					],
+					[
+						"Cam Boom Speed",
+						"0",
+						""
 					]
 				]
 			]
@@ -659,6 +654,6 @@
 		"bpm": 172,
 		"arrowSkin": null,
 		"needsVoices": true,
-		"song": "Sleek-And-Silver"
+		"song": "sleek-and-silver"
 	}
 }
