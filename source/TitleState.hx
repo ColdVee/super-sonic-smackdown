@@ -58,6 +58,7 @@ class TitleState extends MusicBeatState
 	public static var initialized:Bool = false;
 
 	var blackScreen:FlxSprite;
+	var whiteScreen:FlxSprite;
 	var credGroup:FlxGroup;
 	var credTextShit:Alphabet;
 	var textGroup:FlxGroup;
@@ -286,13 +287,23 @@ class TitleState extends MusicBeatState
 
 		// FlxTween.tween(logoBl, {y: logoBl.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: PINGPONG});
 		// FlxTween.tween(logo, {y: logoBl.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: PINGPONG, startDelay: 0.1});
+		
+		titleBG = new FlxSprite(-80).loadGraphic(Paths.image('titleBG2'));
+		titleBG.setGraphicSize(Std.int(titleBG.width * 1.175));
+		titleBG.updateHitbox();
+		titleBG.screenCenter(X);
+		titleBG.antialiasing = ClientPrefs.globalAntialiasing;
+		titleBG.visible = true;
+		add(titleBG);
 
+		gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x00ff0000, 0x55ff0000, 0xAAff0000], 1, 90, true);
+		gradientBar.y = 1000;
+		gradientBar.scale.y = 0;
+		gradientBar.updateHitbox();
+		add(gradientBar);
 		credGroup = new FlxGroup();
 		add(credGroup);
 		textGroup = new FlxGroup();
-
-		blackScreen = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-		credGroup.add(blackScreen);
 
 		credTextShit = new Alphabet(0, 0, "", true);
 		credTextShit.screenCenter();
@@ -308,6 +319,10 @@ class TitleState extends MusicBeatState
 		ngSpr.updateHitbox();
 		ngSpr.screenCenter(X);
 		ngSpr.antialiasing = ClientPrefs.globalAntialiasing;
+		
+		whiteScreen = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.WHITE);
+		whiteScreen.alpha = 0;
+		add(whiteScreen);
 
 		FlxTween.tween(credTextShit, {y: credTextShit.y + 20}, 2.9, {ease: FlxEase.quadInOut, type: PINGPONG});
 
@@ -508,65 +523,97 @@ class TitleState extends MusicBeatState
 			switch (sickBeats)
 			{
 				case 1:
+					credTextShit.visible = true;
+					addMoreText('simplyej');
+					addMoreText('freshwoomy');
+				case 2:
 					#if PSYCH_WATERMARKS
-					createCoolText(['Psych Engine by'], 15);
+					addMoreText('luckiibean');
 					#else
-					createCoolText(['ninjamuffin99', 'phantomArcade', 'kawaisprite', 'evilsk8er']);
 					#end
-				// credTextShit.visible = true;
 				case 3:
 					#if PSYCH_WATERMARKS
-					addMoreText('Shadow Mario', 15);
-					addMoreText('RiverOaken', 15);
-					addMoreText('shubs', 15);
+					addMoreText('dj awesome');
 					#else
-					addMoreText('present');
 					#end
-				// credTextShit.text += '\npresent...';
-				// credTextShit.addText();
 				case 4:
 					deleteCoolText();
-				// credTextShit.visible = false;
-				// credTextShit.text = 'In association \nwith';
-				// credTextShit.screenCenter();
+
+					addMoreText('snap', 15);
 				case 5:
-					#if PSYCH_WATERMARKS
-					createCoolText(['Not associated', 'with'], -40);
-					#else
-					createCoolText(['In association', 'with'], -40);
-					#end
+					addMoreText('begwhi', 15);
+				case 6:
+					addMoreText('ratsots', 15);
 				case 7:
+					addMoreText('two-story', 15);
+				case 8:
+					deleteCoolText();
+
+					addMoreText('cold_vee', 15);
+				case 9:
+					addMoreText('sentiack', 15);
+				case 10:
+					addMoreText('sugarratio', 15);
+				case 11:
+					addMoreText('kiwiquest', 15);
+				case 12:
+					deleteCoolText();
+	
+					addMoreText('spiketherapperDA', 15);
+					addMoreText('Comgaming_Nz', 15);
+				case 13:
+					deleteCoolText();
+				
+					addMoreText('Zavemann', 15);
+					addMoreText('rotty eyes', 15);
+				case 14:
+					deleteCoolText();
+					addMoreText('and', 15);
+					addMoreText('rileyverse', 15);
+					addMoreText('ethanthedoodler', 15);
+				case 15:
+					addMoreText('present', 15);
+				case 16:
+					FlxTween.tween(gradientBar, {'scale.y': 1.3}, 4, {ease: FlxEase.quadInOut});
+					FlxTween.tween(gradientBar, {y: 700}, 2.3, {ease: FlxEase.expoInOut, startDelay: 0});
+					gradientBar.updateHitbox();
+					gradientBar.y = FlxG.height - gradientBar.height;
+					deleteCoolText();
+					addMoreText('Psych Engine by', 15);
+					
+				case 18:
+					addMoreText('Shadow Mario',30);
+					addMoreText('RiverOaken',30);
+					addMoreText('shub',30);
+				case 19:
+					deleteCoolText();
+				case 20:
+					createCoolText(['Not associated', 'with'], -40);
+				case 22:
 					addMoreText('newgrounds', -40);
 					ngSpr.visible = true;
 				// credTextShit.text += '\nNewgrounds';
-				case 8:
+				case 23:
 					deleteCoolText();
 					ngSpr.visible = false;
-				// credTextShit.visible = false;
-
-				// credTextShit.text = 'Shoutouts Tom Fulp';
-				// credTextShit.screenCenter();
-				case 9:
+				case 24:
 					createCoolText([curWacky[0]]);
 				// credTextShit.visible = true;
-				case 11:
+				case 26:
 					addMoreText(curWacky[1]);
 				// credTextShit.text += '\nlmao';
-				case 12:
+				case 27:
 					deleteCoolText();
-				// credTextShit.visible = false;
-				// credTextShit.text = "Friday";
-				// credTextShit.screenCenter();
-				case 13:
-					addMoreText('Friday');
+				case 28:
+					addMoreText('Super');
 				// credTextShit.visible = true;
-				case 14:
-					addMoreText('Night');
+				case 29:
+					addMoreText('Sonic');
 				// credTextShit.text += '\nNight';
-				case 15:
-					addMoreText('Funkin'); // credTextShit.text += '\nFunkin';
-
-				case 16:
+				case 30:
+					addMoreText('Smackdown'); // credTextShit.text += '\nFunkin';
+					FlxTween.tween(whiteScreen, {alpha: 100}, 1, {ease: FlxEase.expoInOut, startDelay: 0});
+				case 32:
 					skipIntro();
 			}
 		}
@@ -578,9 +625,11 @@ class TitleState extends MusicBeatState
 		if (!skippedIntro)
 		{
 			remove(ngSpr);
-
+			titleBG.visible = false;
+			whiteScreen.visible = false;
 			FlxG.camera.flash(FlxColor.WHITE, 4);
 			remove(credGroup);
+			gradientBar.visible = false;
 			skippedIntro = true;
 		}
 	}
