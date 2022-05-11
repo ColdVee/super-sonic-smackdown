@@ -1,47 +1,36 @@
 {
 	"animations": [
 		{
+			"loop": false,
 			"offsets": [
 				57,
 				-31
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singLEFT",
-			"indices": [],
-			"name": "Dark Sonic LEFT"
+			"fps": 24,
+			"name": "Dark Sonic LEFT",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-111,
 				0
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singRIGHT",
-			"indices": [],
-			"name": "Dark Sonic RIGHT"
+			"fps": 24,
+			"name": "Dark Sonic RIGHT",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-40,
 				100
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singUP",
-			"indices": [],
-			"name": "Dark Sonic UP"
-		},
-		{
-			"loop": false,
-			"offsets": [
-				0,
-				0
-			],
-			"anim": "idle",
 			"fps": 24,
-			"name": "Sonic is MAD0",
+			"name": "Dark Sonic UP",
 			"indices": []
 		},
 		{
@@ -51,45 +40,56 @@
 			],
 			"loop": false,
 			"fps": 24,
-			"anim": "idle-mad",
+			"anim": "idle",
 			"indices": [],
-			"name": "Dark Sonic IDLE0"
+			"name": "Sonic is MAD0"
 		},
 		{
-			"offsets": [
-				-40,
-				-110
-			],
 			"loop": false,
-			"fps": 24,
-			"anim": "singDOWN",
-			"indices": [],
-			"name": "Dark Sonic DOWN0"
-		},
-		{
-			"offsets": [
-				26,
-				23
-			],
-			"loop": false,
-			"fps": 24,
-			"anim": "regret",
-			"indices": [],
-			"name": "Sonic regretthat0"
-		},
-		{
-			"loop": true,
 			"offsets": [
 				0,
 				0
 			],
-			"anim": "idle-mad-loop",
+			"anim": "idle-mad",
 			"fps": 24,
-			"name": "Dark Sonic IDLE",
+			"name": "Dark Sonic IDLE0",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-40,
+				-110
+			],
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "Dark Sonic DOWN0",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				26,
+				23
+			],
+			"anim": "regret",
+			"fps": 24,
+			"name": "Sonic regretthat0",
+			"indices": []
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": true,
+			"fps": 24,
+			"anim": "idle-mad-loop",
 			"indices": [
 				12,
 				13
-			]
+			],
+			"name": "Dark Sonic IDLE"
 		}
 	],
 	"no_antialiasing": false,
@@ -106,8 +106,8 @@
 		52
 	],
 	"camera_position": [
-		0,
-		0
+		60,
+		20
 	],
 	"sing_duration": 6.1,
 	"scale": 1

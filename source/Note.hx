@@ -31,6 +31,7 @@ class Note extends FlxSprite
 	public var noteWasHit:Bool = false;
 	public var prevNote:Note;
 	public var isHoldEnd:Bool = false;
+	public var switched:Bool = false;
 
 	public var sustainLength:Float = 0;
 	public var isSustainNote:Bool = false;
@@ -110,7 +111,7 @@ class Note extends FlxSprite
 						offsetY -= 100;
 						
 					if (mustPress)
-						offsetX -= 640;
+						offsetX = -640;
 					else
 						offsetX = 640;
 				case 'Hurt Note':

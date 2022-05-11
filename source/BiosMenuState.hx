@@ -6,21 +6,15 @@ import Discord.DiscordClient;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
-import flixel.FlxCamera;
 import flixel.addons.transition.FlxTransitionableState;
-import flixel.effects.FlxFlicker;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
 import flixel.math.FlxMath;
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import lime.app.Application;
-import flixel.util.FlxTimer;
 import Achievements;
-import editors.MasterEditorMenu;
-import flixel.input.keyboard.FlxKey;
+import flixel.addons.display.FlxBackdrop;
 
 using StringTools;
 
@@ -28,10 +22,8 @@ class BiosMenuState extends MusicBeatState
 {
 	public static var psychEngineVersion:String = '0.5.1-git'; //This is also used for Discord RPC
 	public static var curSelected:Int = 0;
-	var bioText:FlxText;
-	var charName:FlxText;
-	private var camGame:FlxCamera;
-	private var camAchievement:FlxCamera;
+	private var bioText:FlxText;
+	private var charName:FlxText;
 	
 	var chars:Array<String> = [
 		'silver',
@@ -39,12 +31,11 @@ class BiosMenuState extends MusicBeatState
 		'terios',
 		'sonai'
 	];
-	var bios:Array<String> = [];
-	var charSprites:Map<String, Dynamic> = [];
-	var portSprites:Map<String, Dynamic> = [];
-	var camFollow:FlxObject;
-	var camFollowPos:FlxObject;
-	var debugKeys:Array<FlxKey>;
+	private var bios:Array<String> = [];
+	private var charSprites:Map<String, FlxSprite> = [];
+	private var portSprites:Map<String, FlxSprite> = [];
+	private var textScroll1:FlxBackdrop = new FlxBackdrop(Paths.image('bios/text'), 1, 1, true, false, 50);
+	private var textScroll2:FlxBackdrop = new FlxBackdrop(Paths.image('bios/text'), 1, 1, true, false, 50);
 
 	override function create()
 	{
@@ -54,16 +45,24 @@ class BiosMenuState extends MusicBeatState
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Bios Menu", null);
 		#end
-
-		transIn = FlxTransitionableState.defaultTransIn;
-		transOut = FlxTransitionableState.defaultTransOut;
-
-		persistentUpdate = persistentDraw = true;
+		persistentUpdate = true;
 		
 		var bg:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('bios/bg'));
 		bg.scrollFactor.set(0, 0);
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
+		
+		textScroll1.alpha = 0.5;
+		textScroll2.alpha = 0.3;
+		
+		textScroll1.screenCenter();
+		textScroll2.screenCenter();
+		textScroll1.y += 30;
+		textScroll2.y -= 30;
+		
+		add(textScroll1);
+		textScroll2.scale.set(0.7, 0.7);
+		add(textScroll2);
 		
 		// magenta.scrollFactor.set();
 		
@@ -97,7 +96,6 @@ class BiosMenuState extends MusicBeatState
 		charName.borderSize = 3;
 		charName.antialiasing = ClientPrefs.globalAntialiasing;
 		charName.scrollFactor.set();
-		charName.alignment = CENTER;
 		add(charName);
 		
 		for (i in 0...chars.length)
@@ -188,19 +186,12 @@ class BiosMenuState extends MusicBeatState
 		super.create();
 	}
 
-	#if ACHIEVEMENTS_ALLOWED
-	// Unlocks "Freaky on a Friday Night" achievement
-	function giveAchievement() {
-		add(new AchievementObject('friday_night_play', camAchievement));
-		FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
-		trace('Giving achievement "friday_night_play"');
-	}
-	#end
-
 	var selectedSomethin:Bool = false;
 
 	override function update(elapsed:Float)
 	{
+		textScroll1.x -= 4;
+		textScroll2.x -= 2;
 		if (FlxG.sound.music != null)
 			Conductor.songPosition = FlxG.sound.music.time;
 			
@@ -231,14 +222,6 @@ class BiosMenuState extends MusicBeatState
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				MusicBeatState.switchState(new MainMenuState());
 			}
-			
-			#if desktop
-			else if (FlxG.keys.anyJustPressed(debugKeys))
-			{
-				selectedSomethin = true;
-				MusicBeatState.switchState(new MasterEditorMenu());
-			}
-			#end
 		}
 
 		super.update(elapsed);
@@ -289,6 +272,8 @@ class BiosMenuState extends MusicBeatState
 		{
 			case "dark":
 				charName.offset.x = 0;
+			case "silver" | "terios":
+				charName.offset.x = -80;
 			default:
 				charName.offset.x = -100;
 		}

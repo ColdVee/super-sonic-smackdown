@@ -24,7 +24,7 @@ function onUpdate(elapsed)
 		doTweenY('floatDown', 'dad', getProperty('dad.y') + 150, 2, 'sineInOut')
 	end
 
-    if not mustHitSection then
+    if not mustHitSection and not getProperty('startingSong') then
 		setProperty('defaultCamZoom',0.65)
 	else
 		setProperty('defaultCamZoom',0.8)

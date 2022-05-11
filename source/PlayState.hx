@@ -802,9 +802,9 @@ class PlayState extends MusicBeatState
 		boyfriendGroup.add(boyfriend);
 		startCharacterLua(boyfriend.curCharacter);
 		
-		var camPos:FlxPoint = new FlxPoint(gf.getGraphicMidpoint().x, gf.getGraphicMidpoint().y);
-		camPos.x += gf.cameraPosition[0];
-		camPos.y += gf.cameraPosition[1];
+		var camPos:FlxPoint = new FlxPoint(dad.getGraphicMidpoint().x, dad.getGraphicMidpoint().y);
+		camPos.x += dad.cameraPosition[0];
+		camPos.y += dad.cameraPosition[1];
 
 		if(dad.curCharacter.startsWith('gf')) {
 			dad.setPosition(GF_X, GF_Y);
@@ -1157,6 +1157,22 @@ class PlayState extends MusicBeatState
 
 		Conductor.safeZoneOffset = (ClientPrefs.safeFrames / 60) * 1000;
 		callOnLuas('onCreatePost', []);
+		camFollowPos.setPosition(dad.getGraphicMidpoint().x, dad.getGraphicMidpoint().y);
+		camFollowPos.x += dad.cameraPosition[0];
+		camFollowPos.y += dad.cameraPosition[1];
+		
+		if (SONG.song.toLowerCase() == 'eclipse')
+		{
+			for (daNote in unspawnNotes) {
+				if (daNote.noteType == 'Chaos')
+				{
+					if (daNote.mustPress)
+						daNote.offsetX = 640;
+					else
+						daNote.offsetX = -640;
+				}
+			}
+		}
 		
 		super.create();
 
@@ -2464,13 +2480,13 @@ class PlayState extends MusicBeatState
 					}
 				}
 				
-				var center:Float = strumY + Note.swagWidth / 2;
+				var center:Float = strumY + Note.swagWidth / 2 - daNote.offsetY;
 				if(strumGroup.members[daNote.noteData].sustainReduce && daNote.isSustainNote && (daNote.mustPress || !daNote.ignoreNote) &&
 					(!daNote.mustPress || (daNote.wasGoodHit || (daNote.prevNote.wasGoodHit && !daNote.canBeHit))))
 				{
 					if (strumScroll)
 					{
-						if(daNote.y - daNote.offset.y * daNote.scale.y + daNote.height >= center)
+						if(daNote.y - daNote.offsetY * daNote.scale.y + daNote.height >= center)
 						{
 							var swagRect = new FlxRect(0, 0, daNote.frameWidth, daNote.frameHeight);
 							swagRect.height = (center - daNote.y) / daNote.scale.y;
@@ -2481,7 +2497,7 @@ class PlayState extends MusicBeatState
 					}
 					else
 					{
-						if (daNote.y + daNote.offset.y * daNote.scale.y <= center)
+						if (daNote.y + daNote.offsetY * daNote.scale.y <= center)
 						{
 							var swagRect = new FlxRect(0, 0, daNote.width / daNote.scale.x, daNote.height / daNote.scale.y);
 							swagRect.y = (center - daNote.y) / daNote.scale.y;
@@ -2514,7 +2530,7 @@ class PlayState extends MusicBeatState
 						daNote.notesMoving = true;
 						daNote.animation.curAnim.paused = false;
 						if (!daNote.isSustainNote)
-							FlxTween.tween(daNote, {offsetX: daNote.ogX}, 0.4, {ease: FlxEase.cubeOut});
+							FlxTween.tween(daNote, {offsetX: daNote.ogX}, 0.25, {ease: FlxEase.cubeOut});
 					}
 				}
 			});
@@ -3214,8 +3230,9 @@ class PlayState extends MusicBeatState
 						FlxG.sound.play(Paths.sound('Lights_Shut_off'));
 					}
 
-					FlxTransitionableState.skipNextTransIn = true;
-					FlxTransitionableState.skipNextTransOut = true;
+					if(FlxTransitionableState.skipNextTransIn) {
+						CustomFadeTransition.nextCamera = null;
+					}
 
 					prevCamFollow = camFollow;
 					prevCamFollowPos = camFollowPos;
@@ -3828,14 +3845,6 @@ class PlayState extends MusicBeatState
 			time += 0.15;
 		}
 		
-		if (note.noteType == 'Chaos')
-		{
-			if (note.isSustainNote && !note.animation.curAnim.name.endsWith('end'))
-				note.offsetY = 0;
-			else if (note.isSustainNote && note.animation.curAnim.name.endsWith('end'))
-				note.offsetY += 7;
-		}
-		
 		if (note.noteType != 'Ghost')
 		StrumPlayAnim(true, Std.int(Math.abs(note.noteData)) % 4, time);
 		note.hitByOpponent = true;
@@ -3887,13 +3896,7 @@ class PlayState extends MusicBeatState
 				popUpScore(note);
 				if(combo > 9999) combo = 9999;
 			}
-			else if (note.noteType == 'Chaos')
-			{
-				if (note.isSustainNote && !note.animation.curAnim.name.endsWith('end'))
-					note.offsetY = 0;
-				else if (note.isSustainNote && note.animation.curAnim.name.endsWith('end'))
-					note.offsetY += 7;
-			}
+			
 			health += note.hitHealth * healthGain;
 
 			if(!note.noAnimation) {
@@ -4530,3 +4533,4 @@ class PlayState extends MusicBeatState
 	var curLight:Int = 0;
 	var curLightEvent:Int = 0;
 }
+//

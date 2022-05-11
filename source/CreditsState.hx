@@ -85,6 +85,29 @@ class CreditsState extends MusicBeatState
 		#end
 
 		var pisspoop:Array<Array<String>> = [ //Name - Icon name - Description - Link - BG Color
+			['Super Sonic Smackdown Team'],
+			
+			['Simply EJ',			'ej',			'Lead and Director of the mod, lead Composer & Artist+Animator',																											'https://twitter.com/ESimplyJ',			'33CCCC'],
+			['DJ Awesome',			'djawesum',		'Concept/Main Menu Artist, Menu Music, Worked Up Ending.\nTerios Note Poses, and Dark BF skin.\nLiterally everything unique to Eclipse.',		'https://www.youtube.com/channel/UCTJcMkUn2lTZ749M_AhULFQ',			'FF0000'],
+			['Cold_Vee',			'cold',			'Lead Programmer',																																							'https://twitter.com/cold_vee',			'AD3838'],
+			['Senti',				'senti',		'Penumbra - Terios Custom Anims (Chaos Control, You Suck, and touched up Chaos Poses)\n Extrapolator - SonAI Up Pose',																						'https://twitter.com/sentiack',			'FF065E'],
+			['Eat alot of food',	'eat',			'Animator (Sonic\'s lipsync, Silver Sonic\'s explosion, Terios\'s laugh.), Charted Penumbra',																				'https://twitter.com/eatalottafood',	'FA873C'],
+			['Begwhi',				'begwhi',		'Terios Voice, Chromatics, Penumbra Music Assistance',																														'https://twitter.com/Begwhi02',			'458EFF'],
+			['LuckiiBean',			'luckii',		'Silver Sonic\'s Voice, Chromatics, Worked Up Music Assistance',																											'https://twitter.com/LuckiiBean',		'FF0082'],
+			['Rotty Eyes',			'rotty',		'Thorndyke BF, Backgrounds, Narcissus Sprite\n SonAI\'s Right pose',																																'https://twitter.com/rotty_eyes',		'405B33'],
+			['FreshWoomy',			'woomy',		'Sonic Sprites for Penumbra, Dark Sonic touch-ups.',																														'https://twitter.com/FreshwoomyS',		'6120DE'],
+			['Zavemann',			'zave',			'Silver Sonic portrait & Worked Up ending help\n SonAI Right & Down poses',																															'https://twitter.com/ZavemannVA',		'FFFF37'],
+			['Kiwiquest',			'kiwi',			'Worked Up melody Assistance',																																				'https://twitter.com/SujiiLol',			'442952'],
+			['EthanTheDoodler',		'ethan',		'Artist',																																									'https://twitter.com/D00dlerEthan',		'3D4A5C'],
+			['RatsoTS',				'ratso',		'Artist',																																									'https://twitter.com/TargetSausage',	'E2FF00'],
+			['ComGaming_NZ',		'comgamin',		'Concept Artist',																																							'https://twitter.com/Comgamingnz',		'3268CC'],
+			['Rileyverse',			'riley',		'Concept Artist',																																							'https://twitter.com/rileyverse',		'FF82D5'],
+			['LuckyPuppet',			'lucky',		'Charter (Sleek & Silver)',																																					'https://twitter.com/LuckyThePuppet',	'281270'],
+			['Snap',				'snap',			'Voice Actor for Dark Sonic',																																				'https://twitter.com/snapple_snap',		'FF9E58'],
+			
+			['Mod Contributors'],
+			['Kevin Kuntz',			'kevin',		'Original Lua assistance with Chaos Notes',					'https://kevinkuntz.newgrounds.com/',	'EFB0A1'],
+			
 			['Psych Engine Team'],
 			['Shadow Mario',		'shadowmario',		'Main Programmer of Psych Engine',						'https://twitter.com/Shadow_Mario_',	'444444'],
 			['RiverOaken',			'riveroaken',		'Main Artist/Animator of Psych Engine',					'https://twitter.com/river_oaken',		'C30085'],
